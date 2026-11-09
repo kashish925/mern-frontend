@@ -47,7 +47,7 @@ export function useCheckout() {
       })
     } catch (err) {
       setPendingPlan(null)
-      if (err.status === 503) setError('Payments aren’t set up yet. Please try again later.')
+      if (err.status === 503) setError(`Payments aren’t set up yet (${err.message}). Please try again later.`)
       else if (err.status === 409) setError('You already have an active plan.')
       else setError(err.message)
     }
