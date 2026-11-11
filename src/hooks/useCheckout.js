@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { track } from '../analytics/track.js'
 import { billingApi } from '../api/billing.js'
 import logoMark from '../assets/logo-mark.png'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -13,7 +14,8 @@ export function useCheckout() {
   const [error, setError] = useState('')
   const [mockCheckout, setMockCheckout] = useState(null)
 
-  const activated = async (plan) => {
+  const activated = async (plan, testPayment = false) => {
+    track('purchase', { plan: plan.id, plan_name: plan.name, value: plan.price, currency: 'USD', test_payment: testPayment })
     await refresh()
     toast.success(`You’re on the ${plan.name} plan. The AI companion and all exercises are unlocked.`)
   }
@@ -21,8 +23,10 @@ export function useCheckout() {
   const choose = async (plan) => {
     setError('')
     setPendingPlan(plan.id)
+    track('select_plan', { plan: plan.id, plan_name: plan.name, value: plan.price, currency: 'USD' })
     try {
       const sub = await billingApi.subscribe(plan.id)
+      track('begin_checkout', { plan: plan.id, plan_name: plan.name, value: plan.price, currency: 'USD', test_payment: Boolean(sub.mock) })
       if (sub.mock) {
         setMockCheckout({ plan, subscriptionId: sub.subscriptionId })
         return
@@ -62,7 +66,7 @@ export function useCheckout() {
     })
     setMockCheckout(null)
     setPendingPlan(null)
-    await activated(plan)
+    await activated(plan, true)
   }
 
   const closeMock = useCallback(() => {

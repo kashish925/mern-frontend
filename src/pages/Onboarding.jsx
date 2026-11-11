@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { track } from '../analytics/track.js'
 import { onboardingApi } from '../api/onboarding.js'
 import ChoiceGrid from '../components/feature/ChoiceGrid.jsx'
 import ScaleQuestion from '../components/feature/ScaleQuestion.jsx'
@@ -94,6 +95,7 @@ export default function Onboarding() {
         payload.talkedToProfessional = answers.talkedToProfessional
       }
       const data = await onboardingApi.save(payload)
+      track('onboarding_complete', { trial_started: Boolean(data.profile?.trialGranted) })
       const showSummary = !data.profile?.trialGranted
       if (showSummary) setResult(data)
       await refresh()

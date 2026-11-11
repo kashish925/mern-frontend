@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { track } from '../analytics/track.js'
 import { aiApi } from '../api/ai.js'
 import ChatMessage, { TypingDots } from '../components/feature/ChatMessage.jsx'
 import CrisisBanner from '../components/feature/CrisisBanner.jsx'
@@ -87,7 +88,10 @@ export default function Companion() {
         conversationId: activeId || undefined,
         signal: controller.signal,
         onEvent: (event) => {
-          if (event.conversationId) setActiveId(event.conversationId)
+          if (event.conversationId) {
+            setActiveId(event.conversationId)
+            track('companion_message_sent', { new_conversation: !activeId })
+          }
           if (event.usage) setLiveUsage(event.usage)
           if (event.crisis) setCrisis(true)
           if (event.text) {
@@ -110,6 +114,7 @@ export default function Companion() {
     } catch (err) {
       if (err.name !== 'AbortError') {
         if (err.status === 429) {
+          track('companion_limit_reached')
           setMessages((list) => list.filter((m) => m.id !== userKey))
           setDraft(message)
           setLiveUsage((u) => (u ? { ...u, remaining: 0, used: u.limit } : u))
@@ -133,6 +138,7 @@ export default function Companion() {
     setDeleting(true)
     try {
       await aiApi.deleteConversation(toDelete.id)
+      track('companion_conversation_deleted')
       if (toDelete.id === activeId) open(null)
       toast.success('Conversation deleted')
       setToDelete(null)

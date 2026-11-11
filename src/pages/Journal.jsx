@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { track } from '../analytics/track.js'
 import { journalApi } from '../api/journal.js'
 import Alert from '../components/ui/Alert.jsx'
 import Badge from '../components/ui/Badge.jsx'
@@ -59,6 +60,7 @@ export default function Journal() {
     setDeleting(true)
     try {
       await journalApi.remove(toDelete.id)
+      track('journal_entry_deleted')
       toast.success('Entry deleted')
       setToDelete(null)
       list.reload()

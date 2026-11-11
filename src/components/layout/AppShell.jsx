@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { track } from '../../analytics/track.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { NoIndex } from '../SEO.jsx'
 import Icon from '../ui/Icon.jsx'
@@ -31,6 +32,7 @@ export default function AppShell() {
   const navigate = useNavigate()
 
   const onLogout = async () => {
+    track('logout')
     await logout()
     navigate('/login', { replace: true })
   }

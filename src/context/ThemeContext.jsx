@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { track } from '../analytics/track.js'
 import { chartColors, palettes } from '../theme/tokens.js'
 
 const STORAGE_KEY = 'happitrack-theme'
@@ -32,6 +33,7 @@ export function ThemeProvider({ children }) {
   const setTheme = useCallback((next) => {
     if (!CHOICES.includes(next)) return
     setThemeState(next)
+    track('theme_change', { theme: next })
     try {
       localStorage.setItem(STORAGE_KEY, next)
     } catch {

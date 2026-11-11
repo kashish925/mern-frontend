@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { track } from '../analytics/track.js'
 import { journalApi } from '../api/journal.js'
 import TagInput from '../components/feature/TagInput.jsx'
 import Alert from '../components/ui/Alert.jsx'
@@ -50,10 +51,12 @@ export default function JournalEditor() {
     try {
       if (isNew) {
         const { entry } = await journalApi.create(body)
+        track('journal_entry_created')
         toast.success('Entry saved')
         navigate(`/journal/${entry.id}`, { replace: true })
       } else {
         await journalApi.update(id, body)
+        track('journal_entry_updated')
         toast.success('Changes saved')
         existing.reload()
       }
@@ -68,6 +71,7 @@ export default function JournalEditor() {
     setDeleting(true)
     try {
       await journalApi.remove(id)
+      track('journal_entry_deleted')
       toast.success('Entry deleted')
       navigate('/journal', { replace: true })
     } catch (err) {

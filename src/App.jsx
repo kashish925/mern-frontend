@@ -1,5 +1,6 @@
 import { Suspense, useEffect } from 'react'
 import { Navigate, Route, Routes, useParams } from 'react-router-dom'
+import AnalyticsListener from './analytics/AnalyticsListener.jsx'
 import AppShell from './components/layout/AppShell.jsx'
 import { GuestOnly, RequireAuth, RequireOnboarding } from './components/layout/RouteGuards.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
@@ -47,6 +48,7 @@ export default function App() {
 
   return (
     <>
+      <AnalyticsListener />
       <a href="#main" className="sr-only z-[70] rounded-full bg-primary px-4 py-2 font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Skip to content
       </a>

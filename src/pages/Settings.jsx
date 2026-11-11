@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { accountApi } from '../api/account.js'
+import { track } from '../analytics/track.js'
 import { authApi } from '../api/auth.js'
 import { billingApi } from '../api/billing.js'
 import { onboardingApi } from '../api/onboarding.js'
@@ -53,6 +54,7 @@ function PasswordCard() {
 
   const requestCode = async () => {
     const result = await authApi.requestPasswordCode()
+    track('password_code_requested', { context: 'settings' })
     if (result.devOtp) setDevOtp(result.devOtp)
     return result
   }
@@ -82,6 +84,7 @@ function PasswordCard() {
             submitLabel="Change password"
             onSubmit={async ({ otp, password }) => {
               await authApi.changePassword({ otp, password })
+              track('password_changed', { context: 'settings' })
               toast.success('Your password was changed')
               setOpen(false)
               setDevOtp('')

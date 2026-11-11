@@ -5,6 +5,7 @@ import Alert from '../components/ui/Alert.jsx'
 import Button from '../components/ui/Button.jsx'
 import { Input, PasswordInput } from '../components/ui/Field.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { track } from '../analytics/track.js'
 import SEO from '../components/SEO.jsx'
 
 export default function Login() {
@@ -25,6 +26,7 @@ export default function Login() {
     setLoading(true)
     try {
       const session = await login(form.email.trim(), form.password)
+      track('login', { method: 'email' })
       const from = location.state?.from
       navigate(session.onboardingCompleted ? from || '/dashboard' : '/onboarding', { replace: true })
     } catch (err) {

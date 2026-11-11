@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { track } from '../analytics/track.js'
 import { authApi } from '../api/auth.js'
 import PasswordCodeForm from '../components/feature/PasswordCodeForm.jsx'
 import AuthLayout from '../components/layout/AuthLayout.jsx'
@@ -17,6 +18,7 @@ export default function ForgotPassword() {
 
   const requestCode = async () => {
     const result = await authApi.forgotPassword(email.trim())
+    track('password_code_requested', { context: 'forgot_password' })
     if (result.devOtp) setDevOtp(result.devOtp)
     return result
   }
@@ -65,6 +67,7 @@ export default function ForgotPassword() {
             onResend={requestCode}
             onSubmit={async ({ otp, password }) => {
               await authApi.resetPassword({ email: email.trim(), otp, password })
+              track('password_changed', { context: 'forgot_password' })
               setStep('done')
             }}
           />

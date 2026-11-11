@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { track } from '../analytics/track.js'
 import { exercisesApi } from '../api/exercises.js'
 import BreathingCircle from '../components/feature/BreathingCircle.jsx'
 import LockedCard from '../components/feature/LockedCard.jsx'
@@ -163,6 +164,7 @@ export default function ExercisePlayer() {
     setSaveError('')
     try {
       const { session } = await exercisesApi.logSession(exercise.id, Math.min(7200, Math.max(1, Math.round(seconds))))
+      track('exercise_completed', { exercise_id: exercise.id, duration_sec: session?.durationSec })
       setDone(session)
     } catch (err) {
       setSaveError(err.message)

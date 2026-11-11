@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { track } from '../../analytics/track.js'
 import { checkinsApi } from '../../api/checkins.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import { localDate } from '../../utils/dates.js'
@@ -70,6 +71,7 @@ export default function CheckInCard({ todayMood, todaySleep, premium, onSaved })
         if (quality) sleepBody.quality = quality
         sleepSaved = await checkinsApi.logSleep(sleepBody)
       }
+      track('checkin_saved', { updated: Boolean(todayMood), sleep_logged: Boolean(sleepSaved) })
       toast.success(todayMood ? 'Check-in updated' : 'Check-in saved. Nicely done.')
       onSaved?.(saved, sleepSaved)
     } catch (err) {

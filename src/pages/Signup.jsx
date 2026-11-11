@@ -5,6 +5,7 @@ import Alert from '../components/ui/Alert.jsx'
 import Button from '../components/ui/Button.jsx'
 import { Input, PasswordInput } from '../components/ui/Field.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { track } from '../analytics/track.js'
 import SEO from '../components/SEO.jsx'
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -35,6 +36,7 @@ export default function Signup() {
     setLoading(true)
     try {
       await register(form.name.trim(), form.email.trim(), form.password)
+      track('sign_up', { method: 'email' })
       navigate('/onboarding', { replace: true })
     } catch (err) {
       if (err.status === 409) setErrors({ email: 'An account with this email already exists. Try logging in.' })
