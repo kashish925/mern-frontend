@@ -1,10 +1,10 @@
+import SEO from '../components/SEO.jsx'
 import PublicLayout from '../components/layout/PublicLayout.jsx'
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
 
-export default function LegalPage({ title, updated, sections }) {
-  useDocumentTitle(title)
+export default function LegalPage({ title, updated, sections, path, description }) {
   return (
     <PublicLayout plain>
+      <SEO title={title} description={description} path={path} />
       <article className="mx-auto max-w-3xl px-6 py-14">
         <h1 className="font-display text-4xl font-semibold sm:text-5xl">{title}</h1>
         <p className="mt-2 text-sm text-ink-muted">Last updated {updated}</p>

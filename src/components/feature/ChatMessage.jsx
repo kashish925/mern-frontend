@@ -51,7 +51,7 @@ export default function ChatMessage({ role, content, streaming = false, notice =
   const mine = role === 'user'
   return (
     <div className={`flex items-end gap-2 ${mine ? 'justify-end' : 'justify-start'}`}>
-      {!mine ? <img src={logoMark} alt="" className="mb-1 h-8 w-auto shrink-0" /> : null}
+      {!mine ? <img src={logoMark} alt="" aria-hidden="true" className="mb-1 h-8 w-auto shrink-0" /> : null}
       <div
         className={`max-w-[85%] rounded-3xl px-4 py-3 text-[15px] leading-relaxed sm:max-w-[70%] ${
           mine ? 'whitespace-pre-wrap rounded-br-lg bg-brand text-white shadow-soft' : 'rounded-bl-lg border border-line bg-surface text-ink'
@@ -67,7 +67,7 @@ export default function ChatMessage({ role, content, streaming = false, notice =
 export function TypingDots() {
   return (
     <div className="flex items-end gap-2" aria-label="Companion is typing">
-      <img src={logoMark} alt="" className="mb-1 h-8 w-auto" />
+      <img src={logoMark} alt="" aria-hidden="true" className="mb-1 h-8 w-auto" />
       <div className="flex gap-1 rounded-3xl rounded-bl-lg border border-line bg-surface px-4 py-4">
         {[0, 1, 2].map((i) => (
           <span key={i} className="h-2 w-2 animate-bounce rounded-full bg-lavender" style={{ animationDelay: `${i * 150}ms` }} />

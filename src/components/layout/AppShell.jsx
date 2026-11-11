@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx'
+import { NoIndex } from '../SEO.jsx'
 import Icon from '../ui/Icon.jsx'
 import Logo from '../ui/Logo.jsx'
 import PageLoader from '../ui/PageLoader.jsx'
@@ -36,6 +37,7 @@ export default function AppShell() {
 
   return (
     <div className="min-h-screen bg-surface-muted">
+      <NoIndex />
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r border-line bg-surface/80 px-4 py-6 backdrop-blur-xl lg:flex">
         <div className="flex items-center justify-between gap-2 px-2">
           <Logo to="/dashboard" />

@@ -5,8 +5,8 @@ import ThemeToggle from '../ui/ThemeToggle.jsx'
 
 export default function AuthLayout({ title, subtitle, children, footer }) {
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-10">
-      <img src={heroSky} alt="" className="absolute inset-0 h-full w-full object-cover" />
+    <main id="main" className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-10">
+      <img src={heroSky} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-surface/20 dark:bg-surface-muted/70" />
       <ThemeToggle className="absolute right-4 top-4 bg-surface/70 backdrop-blur" />
       <div className="relative w-full max-w-md">
@@ -24,6 +24,6 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
           <Link to="/disclaimer" className="hover:underline">Not medical care</Link>
         </p>
       </div>
-    </div>
+    </main>
   )
 }

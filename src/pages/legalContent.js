@@ -1,5 +1,8 @@
 export const PRIVACY = {
   title: 'Privacy Policy',
+  path: '/privacy',
+  description:
+    'How HappiTrack collects, encrypts and protects your check-ins, journal entries and companion chats, and the choices you have over your own data.',
   updated: 'October 2026',
   sections: [
     {
@@ -37,6 +40,9 @@ export const PRIVACY = {
 
 export const TERMS = {
   title: 'Terms of Use',
+  path: '/terms',
+  description:
+    'The terms for using HappiTrack, including the 3-day free trial, paid plans, cancellation, and fair use of the wellness app and its AI companion.',
   updated: 'October 2026',
   sections: [
     {
@@ -68,6 +74,9 @@ export const TERMS = {
 
 export const DISCLAIMER = {
   title: 'Medical disclaimer',
+  path: '/disclaimer',
+  description:
+    'HappiTrack is a wellness and self-reflection tool, not medical care. Read what the app and AI companion can and cannot do, and where to find urgent help.',
   updated: 'October 2026',
   sections: [
     {

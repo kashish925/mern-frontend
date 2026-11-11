@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /journal
+Disallow: /exercises
+Disallow: /insights
+Disallow: /companion
+Disallow: /settings
+Disallow: /onboarding
+Disallow: /forgot-password
+Disallow: /reset-password
+
+Sitemap: https://www.happitrack.com/sitemap.xml

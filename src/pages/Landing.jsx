@@ -7,9 +7,11 @@ import PublicNav from '../components/layout/PublicNav.jsx'
 import Button from '../components/ui/Button.jsx'
 import Icon from '../components/ui/Icon.jsx'
 import Logo from '../components/ui/Logo.jsx'
+import SEO from '../components/SEO.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
 import { useTheme } from '../context/ThemeContext.jsx'
+import { faqSchema, organizationSchema, websiteSchema } from '../seo/schemas.js'
+import { SITE } from '../seo/site.js'
 import { PLANS } from '../utils/format.js'
 
 const FEATURES = [
@@ -165,7 +167,7 @@ function HeroMockups() {
       </PhoneMockup>
       <div className="glass absolute -right-2 bottom-24 hidden w-52 rounded-3xl p-4 md:block lg:-right-10">
         <div className="flex items-center gap-2">
-          <img src={logoMark} alt="" className="h-8 w-auto" />
+          <img src={logoMark} alt="" aria-hidden="true" className="h-8 w-auto" />
           <p className="text-sm font-extrabold">5-day streak</p>
         </div>
         <p className="mt-1 text-xs text-ink-muted">Small steps, every day.</p>
@@ -193,14 +195,20 @@ function FaqItem({ item }) {
 }
 
 export default function Landing() {
-  useDocumentTitle('Track your mood, find your calm')
   const { user } = useAuth()
   const startTo = user ? '/dashboard' : '/signup'
 
   return (
     <div className="bg-surface-muted">
+      <SEO fullTitle={SITE.defaultTitle} path="/" jsonLd={[websiteSchema(), organizationSchema(), faqSchema(FAQ)]} />
+      <main id="main">
       <section className="relative overflow-hidden pb-24 pt-4">
-        <img src={heroSky} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={heroSky}
+          alt="Soft pink and lavender clouds at sunrise"
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-surface/0 via-surface/0 to-surface-muted dark:from-surface-muted/50 dark:via-surface-muted/40" />
         <div className="relative">
           <PublicNav />
@@ -330,7 +338,7 @@ export default function Landing() {
 
       <section className="px-6 pb-20">
         <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] bg-brand px-8 py-14 text-center shadow-lift">
-          <img src={logoMark} alt="" className="mx-auto h-16 w-auto drop-shadow-lg" />
+          <img src={logoMark} alt="" aria-hidden="true" loading="lazy" className="mx-auto h-16 w-auto drop-shadow-lg" />
           <h2 className="mt-4 font-display text-4xl font-semibold text-white sm:text-5xl">Your calmer days start today</h2>
           <p className="mx-auto mt-3 max-w-xl text-white/90">It takes less than a minute to begin. No card, no pressure.</p>
           <Button to={startTo} size="lg" variant="glass" className="mt-8">
@@ -341,6 +349,7 @@ export default function Landing() {
           <Logo variant="mark" size="sm" />
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>

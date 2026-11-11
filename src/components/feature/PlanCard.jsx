@@ -10,7 +10,7 @@ const INCLUDES = [
   'Insights, trends and weekly summaries'
 ]
 
-export default function PlanCard({ plan, current = false, onChoose, loading = false, ctaTo, ctaLabel = 'Choose plan' }) {
+export default function PlanCard({ plan, current = false, onChoose, loading = false, ctaTo, ctaLabel = 'Choose plan', headingLevel: Heading = 'h3' }) {
   return (
     <div
       className={`relative flex flex-col rounded-3xl p-6 transition ${
@@ -23,7 +23,7 @@ export default function PlanCard({ plan, current = false, onChoose, loading = fa
         </span>
       ) : null}
       <div className="flex items-center justify-between">
-        <h3 className={`text-lg font-extrabold ${plan.featured ? 'text-white' : ''}`}>{plan.name}</h3>
+        <Heading className={`text-lg font-extrabold ${plan.featured ? 'text-white' : ''}`}>{plan.name}</Heading>
         {current ? <Badge tone={plan.featured ? 'neutral' : 'success'}>Current plan</Badge> : null}
       </div>
       <p className="mt-4 flex items-end gap-1">

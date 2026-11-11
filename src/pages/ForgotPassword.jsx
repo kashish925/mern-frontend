@@ -6,10 +6,9 @@ import AuthLayout from '../components/layout/AuthLayout.jsx'
 import Alert from '../components/ui/Alert.jsx'
 import Button from '../components/ui/Button.jsx'
 import { Input } from '../components/ui/Field.jsx'
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 
 export default function ForgotPassword() {
-  useDocumentTitle('Reset your password')
   const [email, setEmail] = useState('')
   const [step, setStep] = useState('email')
   const [devOtp, setDevOtp] = useState('')
@@ -53,6 +52,7 @@ export default function ForgotPassword() {
         </Link>
       }
     >
+      <SEO title="Reset your password" description="Reset your HappiTrack password with a 6-digit code sent to your email." noindex />
       {step === 'done' ? (
         <Alert tone="success" title="You’re all set" action={<Button to="/login" size="sm">Log in</Button>}>
           You can now log in with your new password.

@@ -5,10 +5,9 @@ import Alert from '../components/ui/Alert.jsx'
 import Button from '../components/ui/Button.jsx'
 import { Input, PasswordInput } from '../components/ui/Field.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 
 export default function Login() {
-  useDocumentTitle('Log in')
   const { login } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
@@ -48,6 +47,11 @@ export default function Login() {
         </>
       }
     >
+      <SEO
+        title="Log in"
+        description="Log in to HappiTrack to check in, write in your private journal, follow guided calming exercises, and see how your mood, sleep and stress change."
+        path="/login"
+      />
       <form className="space-y-4" onSubmit={onSubmit} noValidate>
         {error ? <Alert tone="danger" title={error} /> : null}
         <Input

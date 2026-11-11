@@ -5,7 +5,7 @@ import Alert from '../components/ui/Alert.jsx'
 import Button from '../components/ui/Button.jsx'
 import { Input, PasswordInput } from '../components/ui/Field.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -19,7 +19,6 @@ function validate(form) {
 }
 
 export default function Signup() {
-  useDocumentTitle('Start your free trial')
   const { register } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ name: '', email: '', password: '' })
@@ -60,6 +59,11 @@ export default function Signup() {
         </>
       }
     >
+      <SEO
+        title="Start your free trial"
+        description="Create your HappiTrack account and get 3 days free, no card needed. Track mood, sleep and stress, journal privately and try guided calming exercises."
+        path="/signup"
+      />
       <form className="space-y-4" onSubmit={onSubmit} noValidate>
         {error ? <Alert tone="danger" title={error} /> : null}
         <Input label="Your name" autoComplete="given-name" value={form.name} onChange={set('name')} error={errors.name} />

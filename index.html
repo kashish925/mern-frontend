@@ -4,9 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#B79CED" />
+    <!-- NOTE: This React SPA uses client-side rendering. For full SEO
+    indexing, consider migrating to Next.js or using prerendering.
+    Google can crawl client-rendered pages but social media crawlers
+    (Facebook, Twitter, LinkedIn, WhatsApp) cannot execute JavaScript — 
+    your og:image and og:title will not show on social shares unless
+    you use SSR, prerendering, or a service like prerender.io -->
+    <title>HappiTrack | Track your mood, sleep and stress and find calm</title>
     <meta
       name="description"
-      content="HappiTrack helps you track mood, sleep and stress, journal privately, and find calm with guided exercises."
+      content="HappiTrack is a private mood, sleep and stress tracker with an encrypted journal, guided breathing exercises and a kind AI companion. Start free for 3 days."
+      data-rh="true"
+    />
+    <meta name="robots" content="index, follow" data-rh="true" />
+    <meta property="og:type" content="website" data-rh="true" />
+    <meta property="og:site_name" content="HappiTrack" data-rh="true" />
+    <meta property="og:locale" content="en_US" data-rh="true" />
+    <meta property="og:url" content="https://www.happitrack.com/" data-rh="true" />
+    <meta property="og:title" content="HappiTrack | Track your mood, sleep and stress and find calm" data-rh="true" />
+    <meta
+      property="og:description"
+      content="HappiTrack is a private mood, sleep and stress tracker with an encrypted journal, guided breathing exercises and a kind AI companion. Start free for 3 days."
+      data-rh="true"
+    />
+    <meta name="twitter:card" content="summary" data-rh="true" />
+    <meta name="twitter:title" content="HappiTrack | Track your mood, sleep and stress and find calm" data-rh="true" />
+    <meta
+      name="twitter:description"
+      content="HappiTrack is a private mood, sleep and stress tracker with an encrypted journal, guided breathing exercises and a kind AI companion. Start free for 3 days."
+      data-rh="true"
     />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
@@ -16,7 +42,6 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Nunito:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>HappiTrack</title>
     <script>
       try {
         var stored = localStorage.getItem('happitrack-theme')
@@ -27,8 +52,19 @@
         }
       } catch (e) {}
     </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P6B5MJCM');</script>
+    <!-- End Google Tag Manager -->
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6B5MJCM"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

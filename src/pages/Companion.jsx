@@ -147,6 +147,7 @@ export default function Companion() {
   if (!unlocked || history.error?.status === 402) {
     return (
       <div className="mx-auto max-w-lg">
+        <h1 className="sr-only">AI companion</h1>
         <div className="card">
           <LockedCard
             title="The companion is on paid plans"

@@ -7,11 +7,11 @@ import Button from '../components/ui/Button.jsx'
 import Icon from '../components/ui/Icon.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useCheckout } from '../hooks/useCheckout.js'
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
+import { pricingSchemas } from '../seo/schemas.js'
 import { PLANS } from '../utils/format.js'
 
 export default function Pricing() {
-  useDocumentTitle('Plans and pricing')
   const { user, access } = useAuth()
   const { choose, pendingPlan, error, mockCheckout, payMock, closeMock } = useCheckout()
   const activePlan = access?.subscription?.status === 'active' ? access.subscription.plan : null
@@ -24,6 +24,12 @@ export default function Pricing() {
 
   return (
     <PublicLayout plain>
+      <SEO
+        title="Plans and pricing"
+        description="Compare HappiTrack plans: Monthly $19, Pro $49 every 3 months, or Annual $185. Every plan includes Insights, all exercises and the AI companion. 3 days free."
+        path="/pricing"
+        jsonLd={pricingSchemas()}
+      />
       <section className="mx-auto max-w-6xl px-6 py-14">
         <Button variant="ghost" size="sm" onClick={goBack} className="mb-6">
           <Icon name="arrowLeft" size={16} /> Back
@@ -41,17 +47,18 @@ export default function Pricing() {
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {PLANS.map((plan) =>
             user && activePlan && activePlan !== plan.id ? (
-              <PlanCard key={plan.id} plan={plan} ctaTo="/settings" ctaLabel="Manage billing" />
+              <PlanCard key={plan.id} plan={plan} headingLevel="h2" ctaTo="/settings" ctaLabel="Manage billing" />
             ) : user ? (
               <PlanCard
                 key={plan.id}
                 plan={plan}
+                headingLevel="h2"
                 current={activePlan === plan.id}
                 loading={pendingPlan === plan.id}
                 onChoose={choose}
               />
             ) : (
-              <PlanCard key={plan.id} plan={plan} ctaTo="/signup" ctaLabel="Start 3 days free" />
+              <PlanCard key={plan.id} plan={plan} headingLevel="h2" ctaTo="/signup" ctaLabel="Start 3 days free" />
             )
           )}
         </div>

@@ -7,7 +7,7 @@ export default function LockedCard({ title = 'Unlock with a plan', text, cta = '
       <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white shadow-soft">
         <Icon name="lock" />
       </span>
-      <h3 className="text-lg font-extrabold">{title}</h3>
+      <h2 className="text-lg font-extrabold">{title}</h2>
       {text ? <p className="max-w-sm text-sm text-ink-muted">{text}</p> : null}
       <Button to={to} size="sm" className="mt-1">
         {cta}

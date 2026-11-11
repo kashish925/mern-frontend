@@ -7,6 +7,7 @@ import Alert from '../components/ui/Alert.jsx'
 import Button from '../components/ui/Button.jsx'
 import Icon from '../components/ui/Icon.jsx'
 import Logo from '../components/ui/Logo.jsx'
+import { NoIndex } from '../components/SEO.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js'
 import { AGE_RANGES, CHECKIN_QUESTIONS, CONCERNS, GOALS } from '../utils/format.js'
@@ -114,7 +115,7 @@ export default function Onboarding() {
     return (
       <Shell progress={100}>
         <div className="space-y-6">
-          <h1 className="font-display text-3xl font-semibold">You’re all set, {user?.name?.split(' ')[0]}</h1>
+          <h2 className="font-display text-3xl font-semibold">You’re all set, {user?.name?.split(' ')[0]}</h2>
           <Alert tone="info" title="This email has already used its free trial">
             You can still check in and read your history. Choose a plan any time to unlock everything.
           </Alert>
@@ -138,7 +139,7 @@ export default function Onboarding() {
       >
         {step.id === 'consent' ? (
           <div className="space-y-5">
-            <h1 className="font-display text-3xl font-semibold sm:text-4xl">Welcome to HappiTrack, {user?.name?.split(' ')[0]}</h1>
+            <h2 className="font-display text-3xl font-semibold sm:text-4xl">Welcome to HappiTrack, {user?.name?.split(' ')[0]}</h2>
             <p className="leading-relaxed text-ink-muted">
               A few quick questions help us personalise your space. Your answers are encrypted, only used to tailor HappiTrack for you,
               and you can edit or delete them any time in Settings.
@@ -243,6 +244,7 @@ export default function Onboarding() {
 function Shell({ progress, stepLabel, children }) {
   return (
     <div className="min-h-screen bg-brand-soft">
+      <NoIndex />
       <header className="mx-auto flex max-w-2xl items-center justify-between px-5 pt-6">
         <Logo size="sm" to={null} />
         {stepLabel ? <span className="text-sm font-bold text-ink-muted">{stepLabel}</span> : null}
@@ -252,7 +254,8 @@ function Shell({ progress, stepLabel, children }) {
           <div className="h-full rounded-full bg-brand transition-all duration-300" style={{ width: `${progress}%` }} />
         </div>
       </div>
-      <main className="mx-auto max-w-2xl px-5 py-8">
+      <main id="main" className="mx-auto max-w-2xl px-5 py-8">
+        <h1 className="sr-only">Set up HappiTrack</h1>
         <div className="glass rounded-3xl p-6 sm:p-9">{children}</div>
       </main>
     </div>
